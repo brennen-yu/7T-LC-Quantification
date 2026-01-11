@@ -1,0 +1,22 @@
+# Data
+data/*
+!data/.gitkeep
+!data/README.md
+
+# Outputs
+outputs/*
+!outputs/.gitkeep
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+env/
+venv/
