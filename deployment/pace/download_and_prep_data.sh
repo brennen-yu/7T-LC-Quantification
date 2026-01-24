@@ -28,7 +28,8 @@ download_file() {
         echo "$filename already exists, skipping."
     else
         echo "Downloading $filename..."
-        wget -O "$filename" "$url"
+        # Use curl with location following (-L) and retry (-C -)
+        curl -L -C - -o "$filename" "$url"
     fi
 }
 
