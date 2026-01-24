@@ -1,13 +1,14 @@
 #!/bin/bash
 #SBATCH --job-name=LC_Quant
-#SBATCH -N1 --ntasks-per-node=1          # 1 node, 1 process (ANTs is multi-threaded, not distributed)
-#SBATCH --cpus-per-task=4                # ANTs benefits from multi-core
-#SBATCH --mem=16G                        # 7T data is large
-#SBATCH --time=02:00:00                  # 2 hours per subject should be plenty
-#SBATCH --array=0-104                    # Array for subjects sub-0000 to sub-0104
-#SBATCH --output=logs/%x_%A_%a.out       # Standard output logging
-#SBATCH --error=logs/%x_%A_%a.err        # Error logging
-#SBATCH --mail-type=BEGIN,END,FAIL       # Mail preferences
+#SBATCH -N1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16G
+#SBATCH --time=02:00:00
+#SBATCH --array=0-104
+#SBATCH --output=logs/%x_%A_%a.out
+#SBATCH --error=logs/%x_%A_%a.err
+#SBATCH --mail-type=BEGIN,END,FAIL
 
 # ---------------------------------------------------------------------
 # PACE SLURM Script for 7T LC Quantification
