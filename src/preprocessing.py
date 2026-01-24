@@ -197,14 +197,32 @@ def register_subject(
     return results
 
 
-def get_mni_template() -> ants.ANTsImage:
+def get_mni_template(config: Optional["PipelineConfig"] = None) -> ants.ANTsImage:
     """
-    Load the MNI152 ICBM 2009c template.
+    Load the MNI152 template defined in the configuration.
+    
+    This should be the specific MNI 2009b template provided with the Ye et al. (2021)
+    atlas to ensure correct spatial alignment.
+
+    Args:
+        config: Pipeline configuration. If None, uses DEFAULT_CONFIG.
 
     Returns:
         MNI template as ANTs image object.
+    
+    Raises:
+        FileNotFoundError: If the template file is missing.
     """
-    from nilearn.datasets import fetch_icbm152_2009
+    if config is None:
+        from .config import DEFAULT_CONFIG
+        config = DEFAULT_CONFIG
 
-    mni = fetch_icbm152_2009()
-    return ants.image_read(mni["t1"])
+    template_path = config.mni_template_path
+    if not template_path.exists():
+        raise FileNotFoundError(
+            f"MNI Template not found at: {template_path}\n"
+            "Please ensure the 'ye_2021' atlas directory is correctly set up."
+        )
+    
+    return ants.image_read(str(template_path))
+

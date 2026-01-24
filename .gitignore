@@ -3,6 +3,11 @@ data/*
 !data/.gitkeep
 !data/README.md
 
+# Atlases
+atlases/*
+!atlases/.gitkeep
+!atlases/README.md
+
 # Outputs
 outputs/*
 !outputs/.gitkeep
