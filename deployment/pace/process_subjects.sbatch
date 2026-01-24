@@ -18,6 +18,12 @@
 # Apptainer is typically available by default on ICE compute nodes
 # module load apptainer                  # Uncomment if 'apptainer' command is not found
 
+# Configure Apptainer to use Scratch for tmp/cache (Fixes 'container_p_join' errors)
+export APPTAINER_TMPDIR=$SLURM_SUBMIT_DIR/tmp
+export APPTAINER_CACHEDIR=$SLURM_SUBMIT_DIR/cache
+mkdir -p $APPTAINER_TMPDIR
+mkdir -p $APPTAINER_CACHEDIR
+
 # Define paths
 PROJECT_DIR=$SLURM_SUBMIT_DIR
 SIF_IMAGE="$PROJECT_DIR/lc_pipeline.sif"
