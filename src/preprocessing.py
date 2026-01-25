@@ -2,6 +2,7 @@
 Image preprocessing and registration for the 7T LC Quantification pipeline.
 """
 
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, TYPE_CHECKING
 
@@ -9,6 +10,11 @@ import ants
 
 if TYPE_CHECKING:
     from .config import PipelineConfig
+
+
+def _get_verbose() -> bool:
+    """Check if verbose registration is enabled via environment variable."""
+    return os.environ.get("ANTS_VERBOSE", "0").lower() in ("1", "true", "yes")
 
 
 def register_to_mni(
@@ -50,7 +56,7 @@ def register_to_mni(
         syn_metric=config.syn_metric,
         syn_sampling=config.syn_sampling,
         reg_iterations=config.reg_iterations,
-        verbose=False,
+        verbose=_get_verbose(),
     )
 
     warped_path = Path(f"{output_prefix}_Warped.nii.gz")
@@ -161,7 +167,7 @@ def register_subject(
         syn_metric=config.syn_metric,
         syn_sampling=config.syn_sampling,
         reg_iterations=config.reg_iterations,
-        verbose=False,
+        verbose=_get_verbose(),
     )
 
     # Save warped T1w

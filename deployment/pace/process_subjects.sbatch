@@ -41,6 +41,10 @@ echo "Time: $(date)"
 export APPTAINERENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$SLURM_CPUS_PER_TASK
 export APPTAINERENV_OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
+# Enable verbose registration output (shows iteration progress)
+# Set to 0 to disable after debugging
+export APPTAINERENV_ANTS_VERBOSE=1
+
 # 3. Create Subject Output Directory (inside results/ and figures/)
 mkdir -p "$OUTPUT_DIR/results/$SUB_ID"
 mkdir -p "$OUTPUT_DIR/figures"
