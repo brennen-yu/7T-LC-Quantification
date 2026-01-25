@@ -98,12 +98,13 @@ class PipelineConfig:
     atlas_dir: Path = field(default_factory=_get_atlas_dir)
 
     # Atlas files
-    lc_atlas_filename: str = "LCTMP_n53_5SD_prob25.nii.gz"
+    lc_atlas_filename: str = "LCTMP_n53_5SD_prob0.nii.gz"
     reference_roi_filename: str = "pontine_reference_MNI.nii.gz"
     mni_template_filename: str = "mni_icbm152_t1_tal_nlin_asym_09b_hires_FSL_bbox_struc_brain_CSFin.nii"
 
     # Thresholds
-    lc_probability_threshold: float = 0.5
+    # Using raw atlas (prob0), threshold at 0.10 (10%) for analysis.
+    lc_probability_threshold: float = 0.10
 
     # Reference region defaults (geometric fallback)
     reference_center_mni: Tuple[float, float, float] = (0.0, -30.0, -28.0)
