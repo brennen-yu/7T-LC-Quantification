@@ -2,9 +2,10 @@
 #SBATCH --job-name=LC_Quant
 #SBATCH -N1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=16G
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=32G
 #SBATCH --time=02:00:00
+#SBATCH --tmp=10G
 #SBATCH --array=0-104
 #SBATCH --output=logs/%x_%A_%a.out
 #SBATCH --error=logs/%x_%A_%a.err
@@ -18,11 +19,8 @@
 # Apptainer is typically available by default on ICE compute nodes
 # module load apptainer                  # Uncomment if 'apptainer' command is not found
 
-# Configure Apptainer to use Scratch for tmp/cache (Fixes 'container_p_join' errors)
-export APPTAINER_TMPDIR=$SLURM_SUBMIT_DIR/tmp
-export APPTAINER_CACHEDIR=$SLURM_SUBMIT_DIR/cache
-mkdir -p $APPTAINER_TMPDIR
-mkdir -p $APPTAINER_CACHEDIR
+# Use fast local disk for temp files inside container (NVMe/SAS)
+export APPTAINERENV_TMPDIR=${TMPDIR}
 
 # Define paths
 PROJECT_DIR=$SLURM_SUBMIT_DIR
