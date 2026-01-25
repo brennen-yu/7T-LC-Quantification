@@ -18,8 +18,18 @@ from typing import Dict, List, Tuple
 
 
 def _in_container() -> bool:
-    """Detect if running inside Apptainer/Docker container with standard bind mounts."""
-    return Path("/data").is_dir() and Path("/outputs").is_dir()
+    """
+    Detect if running inside Apptainer/Docker container with standard bind mounts.
+    Checks if /data and /outputs exist AND if /outputs is writable.
+    """
+    data_path = Path("/data")
+    out_path = Path("/outputs")
+    
+    if data_path.is_dir() and out_path.is_dir():
+        # Check writability of /outputs to distinguish 'our' container from generic read-only ones
+        return os.access(out_path, os.W_OK)
+        
+    return False
 
 
 def _get_project_root() -> Path:
