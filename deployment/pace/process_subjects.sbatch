@@ -54,7 +54,8 @@ mkdir -p "$OUTPUT_DIR/figures"
 #   - local atlases -> /atlases
 # This ensures the container sees the HPC files at the expected internal paths.
 
-srun apptainer exec \
+# Run directly without srun to avoid Slurm's container plugin issues
+apptainer exec \
     --bind "$DATA_DIR":/data \
     --bind "$OUTPUT_DIR":/outputs \
     --bind "$ATLAS_DIR":/atlases \
